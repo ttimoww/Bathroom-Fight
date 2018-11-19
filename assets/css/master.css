@@ -1,0 +1,100 @@
+/* FONTS */
+@font-face {
+  src: url(../fonts/Catamaran-Bold.ttf);
+  font-family: Catamaran-Bold;
+}
+
+/* GENERAL STYLES */
+body{
+  background-color: #dff9fb;
+  overflow-x: hidden;
+}
+
+h1, h2, p{
+  font-family: Catamaran-Bold;
+}
+
+/* LANDING PAGE */
+
+.top{
+  height: 10vh;
+}
+
+.mid, .bottom{
+  height: 30vh;
+}
+
+
+.page-title h1{
+  width: 100%;
+  text-align: center;
+}
+
+.child{
+  width: 60%;
+  min-width: 150px;
+}
+
+.mid-mid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.start-game *{
+  cursor: pointer;
+  transition:  0.4s;
+}
+
+.start-game:hover *{
+  transform: scale(1.1);
+}
+
+.start-game img{
+  width: 30%;
+  min-width: 80px;
+  max-width: 100px;
+}
+
+/* BRIDGE PAGE */
+.bridge-page .text{
+  margin-top: 100px;
+}
+
+.bridge-page .text p{
+  font-size: 2.8em;
+  letter-spacing: 6px;
+  text-align: justify;
+}
+
+.bridge-page p span{
+  text-transform: uppercase;
+}
+
+.children{
+  margin-top: 100px;
+}
+
+.bridge-page .children img{
+  width: 40%;
+}
+
+.angry-son{
+  animation: angry-children 0.8s infinite linear;
+}
+
+.angry-daughter{
+  animation: angry-children 1s infinite linear reverse;
+}
+
+
+
+/* ANIMATIONS */
+@keyframes angry-children{
+  /* 0% {transform: rotate(0deg);} */
+  25% {transform: rotate(10deg);}
+  50% {transform: rotate(0deg);}
+  75% {transform: rotate(-10deg);}
+  /* 100% {transform: rotate(0deg);} */
+}

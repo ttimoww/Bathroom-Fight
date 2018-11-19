@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Fight of the bathroom</title>
+  <!-- Bootstrap -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/css/game.css" type="text/css">
+</head>
+  <body>
+    <div class="game-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-3 left">
+            <div class="player-weapon">
+              <div class="player-weapon-container">
+                <div id="player1-weapon-image"></div>
+                <p id="player1-weapon-desc">slippers - 10 attack damage</p>
+              </div>
+            </div>
+
+            <div class="player-actions">
+              <div class="player-actions-container">
+                <p>Reserved for player actions</p>
+              </div>
+            </div>
+
+            <div class="player-health">
+              <div class="player-healt-container">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" id="player1-health">
+                  </div>
+                </div>
+                <p>health</p>
+              </div>
+            </div>
+
+            <div class="son">
+              <img src="media/landing-page/son-angry.png" alt="">
+            </div>
+          </div>
+
+          <!-- GAME BOARD HERE -->
+          <div class="col-xs-6 mid">
+            <div class="board">
+              <div class="board-row">
+                <div class="col player1-next"></div>
+                <div class="col player2-next"></div>
+                <div class="col weapon-hand"></div>
+                <div class="col weapon-plunger"></div>
+                <div class="col weapon-slippers"></div>
+                <div class="col weapon-toothbrush"></div>
+                <div class="col weapon-towel"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col obstacle-baby"></div>
+                <div class="col obstacle-closet"></div>
+                <div class="col obstacle-washing"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div class="board-row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-xs-3 right">
+            <div class="player-weapon">
+              <div class="player-weapon-container">
+                <div id="player2-weapon-image"></div>
+                <p id="player2-weapon-desc">plunger - 15 attack damage</p>
+              </div>
+            </div>
+
+            <div class="player-actions">
+              <div class="player-actions-container">
+                <p>Reserved for player actions</p>
+              </div>
+            </div>
+
+            <div class="player-health">
+              <div class="player-healt-container">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" id="player2-health">
+                  </div>
+                </div>
+                <p>health</p>
+              </div>
+            </div>
+
+            <div class="son">
+              <img src="media/landing-page/daughter-angry.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+/* FONTS */
+@font-face {
+  src: url(../fonts/Catamaran-Bold.ttf);
+  font-family: Catamaran-Bold;
+}
+
+/* GENERAL STYLES */
+body{
+  background-color: #dff9fb;
+}
+
+h1, h2, p{
+  font-family: Catamaran-Bold;
+}
+
+/* MAIN STYLES */
+.game-wrapper{
+  height: 100vh;
+  width: 100vw;
+}
+
+.left, .mid, .right{
+  height: 100vh;
+}
+
+/* PLAYER WEAPON */
+
+.player-weapon{
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-weapon-container div{
+  height: 80px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.player-weapon-container p{
+  margin: 15px 0;
+  font-size: 1.3em;
+}
+
+/* PLAYER ACTIONS */
+
+.player-actions{
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PLAYER HEALTH */
+
+.player-health{
+  height: 75px;
+  display: flex;
+  justify-content: center;
+}
+
+.progress{
+  margin-top: 10px;
+  height: 20px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.player-health p{
+  width: 200px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+/* PLAYER IMAGES */
+
+.son, .daughter{
+  position: absolute;
+  bottom: 0;
+}
+
+.son img, .daughter img{
+  width: 100%;
+  max-width: 400px;
+  z-index: -1;
+}
+
+@media screen and (max-height: 750px) {
+  .son img, .daughter img{
+    opacity: 0.3;
+  }
+}
+
+/* GAME BOARD */
+.mid{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board{
+  height: 750px;
+  width: 750px;
+  padding: 10px;
+  border: 5px solid #7f5122;
+}
+
+.board-row{
+  display: flex;
+  justify-content: space-between;
+  height: 10%;
+}
+
+.col{
+  border: 1px solid #e9e9e9;
+  width: 10%;
+  height: 100%;
+  display: inline-block;
+}
+
+/* COL STATES */
+.empty{} /* TODO:  */
+.player1{} /* TODO:  */
+.player2{} /* TODO:  */
+
+.player1-next{
+  background-color: rgba(235, 82, 125, .3);
+  cursor: pointer;
+}
+
+.player2-next{
+  background-color: rgba(152, 214, 235, .6);
+  cursor: pointer;
+}
+
+.weapon-hand{
+  background-image: url(../../media/game/weapons/hand.png);
+  background-size: cover;
+}
+
+.weapon-plunger{
+  background-image: url(../../media/game/weapons/plunger.png);
+  background-size: cover;
+}
+
+.weapon-slippers{
+  background-image: url(../../media/game/weapons/slippers.png);
+  background-size: cover;
+}
+
+.weapon-toothbrush{
+  background-image: url(../../media/game/weapons/toothbrush.png);
+  background-size: cover;
+}
+
+.weapon-towel{
+  background-image: url(../../media/game/weapons/towel.png);
+  background-size: cover;
+}
+
+.obstacle-baby{
+  background-image: url(../../media/game/obstacles/baby.png);
+  background-size: cover;
+  background-color: rgba(235, 82, 125, 1);
+}
+
+.obstacle-closet{
+  background-image: url(../../media/game/obstacles/closet.png);
+  background-size: cover;
+  background-color: rgba(235, 82, 125, 1);
+}
+.obstacle-washing{
+  background-image: url(../../media/game/obstacles/washing.png);
+  background-size: cover;
+  background-color: rgba(235, 82, 125, 1);
+}
+
+
+/* STYLES MANIPULATED BY JAVASCRIPT */
+#player1-weapon-image{
+  background-image: url(../../media/game/weapons/slippers.png);
+}
+
+#player2-weapon-image{
+  background-image: url(../../media/game/weapons/plunger.png);
+}
+
+#player1-health{
+  width: 50%;
+}
+
+#player2-health{
+  width: 33%;
+}
+
+/* For weapon name and damage set innerhtml to:
+#player1-weapon-desc
+#player2-weapon-desc */
