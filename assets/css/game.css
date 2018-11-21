@@ -7,6 +7,7 @@
 /* GENERAL STYLES */
 body{
   background-color: #dff9fb;
+  overflow-x: hidden;
 }
 
 h1, h2, p{
@@ -19,14 +20,16 @@ h1, h2, p{
   width: 100vw;
 }
 
-.left, .mid, .right{
+.player-info, .mid{
   height: 100vh;
+  min-height: 750px; /* Because the board will never be less high than 750px; */
 }
 
 /* PLAYER WEAPON */
 
 .player-weapon{
-  height: 300px;
+  width: 100%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +51,7 @@ h1, h2, p{
 /* PLAYER ACTIONS */
 
 .player-actions{
-  height: 150px;
+  height: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,15 +60,16 @@ h1, h2, p{
 /* PLAYER HEALTH */
 
 .player-health{
-  height: 75px;
+  height: 15%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .progress{
   margin-top: 10px;
   height: 20px;
-  width: 100%;
+  max-width: 100%;
   max-width: 200px;
 }
 
@@ -76,55 +80,72 @@ h1, h2, p{
 }
 
 /* PLAYER IMAGES */
-
-.son, .daughter{
+.player-image{
+  max-width: 100%;
+  overflow: hidden;
   position: absolute;
   bottom: 0;
 }
 
-.son img, .daughter img{
+.player-image img{
   width: 100%;
   max-width: 400px;
   z-index: -1;
+  margin: 0 auto;
 }
 
 @media screen and (max-height: 750px) {
-  .son img, .daughter img{
-    opacity: 0.3;
+  .player-weapon{
+    height: 20%;
+  }
+
+  .player-actions{
+    height: 20%;
+  }
+
+  .player-health{
+    height: 30%;
   }
 }
 
 /* GAME BOARD */
 .mid{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
 }
 
 .board{
-  height: 750px;
-  width: 750px;
+  width: 100%;
+  max-width: 750px;
   padding: 10px;
+  margin: 50px auto;
   border: 5px solid #7f5122;
 }
 
 .board-row{
   display: flex;
   justify-content: space-between;
-  height: 10%;
 }
 
 .col{
   border: 1px solid #e9e9e9;
   width: 10%;
-  height: 100%;
   display: inline-block;
 }
 
 /* COL STATES */
 .empty{} /* TODO:  */
-.player1{} /* TODO:  */
-.player2{} /* TODO:  */
+.blocked{} /* TODO:  */
+.player1{
+  background-image: url(../../media/game/players/player1.png);
+  background-size: cover;
+  background-color: rgba(235, 82, 125, .3);
+}
+
+.player2{
+  background-image: url(../../media/game/players/player2.png);
+  background-size: cover;
+  background-color: rgba(152, 214, 235, .6);
+}
 
 .player1-next{
   background-color: rgba(235, 82, 125, .3);
@@ -159,6 +180,10 @@ h1, h2, p{
 .weapon-towel{
   background-image: url(../../media/game/weapons/towel.png);
   background-size: cover;
+}
+
+.obstacle{
+  background-color: rgba(235, 82, 125, 1);
 }
 
 .obstacle-baby{
