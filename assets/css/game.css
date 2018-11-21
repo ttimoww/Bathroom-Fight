@@ -16,20 +16,15 @@ h1, h2, p{
 
 /* MAIN STYLES */
 .game-wrapper{
-  height: 100vh;
   width: 100vw;
 }
 
-.player-info, .mid{
-  height: 100vh;
-  min-height: 750px; /* Because the board will never be less high than 750px; */
-}
 
 /* PLAYER WEAPON */
 
 .player-weapon{
   width: 100%;
-  height: 20%;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,14 +39,13 @@ h1, h2, p{
 }
 
 .player-weapon-container p{
-  margin: 15px 0;
   font-size: 1.3em;
 }
 
 /* PLAYER ACTIONS */
 
 .player-actions{
-  height: 15%;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,31 +54,33 @@ h1, h2, p{
 /* PLAYER HEALTH */
 
 .player-health{
-  height: 15%;
+  height: 100px;;
   display: flex;
   justify-content: center;
   overflow: hidden;
 }
 
-.progress{
-  margin-top: 10px;
+.health-bar{
+  width: 150px;
   height: 20px;
-  max-width: 100%;
-  max-width: 200px;
+  border-radius: 4px;
+  background-color: #E9ECEF;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 }
 
-.player-health p{
-  width: 200px;
-  font-size: 1.3em;
-  text-align: center;
+.health{
+  border-radius: 4px;
+  height: 100%;
+  background-color: #5CB85C;
+  transition: width .6s ease;
 }
 
 /* PLAYER IMAGES */
 .player-image{
   max-width: 100%;
   overflow: hidden;
-  position: absolute;
-  bottom: 0;
+
 }
 
 .player-image img{
@@ -94,30 +90,33 @@ h1, h2, p{
   margin: 0 auto;
 }
 
-@media screen and (max-height: 750px) {
+@media screen and (max-width: 992px) {
   .player-weapon{
-    height: 20%;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  .player-weapon-container div{
+    height: 50px;
   }
 
   .player-actions{
-    height: 20%;
+    height: auto;
+    margin: 10px 0;
   }
 
   .player-health{
-    height: 30%;
+    height: auto;
+    margin: 20px 0;
   }
 }
 
 /* GAME BOARD */
-.mid{
-
-}
-
 .board{
   width: 100%;
   max-width: 750px;
   padding: 10px;
-  margin: 50px auto;
+  margin: 50px auto 10px auto;
   border: 5px solid #7f5122;
 }
 
@@ -222,5 +221,5 @@ h1, h2, p{
 }
 
 /* For weapon name and damage set innerhtml to:
-#player1-weapon-desc
-#player2-weapon-desc */
+#player1-weapon-name & #player1-weapon-damage
+#player2-weapon-name & #player2-weapon-damage */

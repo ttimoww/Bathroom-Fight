@@ -15,37 +15,9 @@
     <div class="game-wrapper">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-xs-3 player-info">
-            <div class="player-weapon">
-              <div class="player-weapon-container">
-                <div id="player1-weapon-image"></div>
-                <p id="player1-weapon-desc">slippers - 10 attack damage</p>
-              </div>
-            </div>
-
-            <div class="player-actions">
-              <div class="player-actions-container">
-                <p>Reserved for player actions</p>
-              </div>
-            </div>
-
-            <div class="player-health">
-              <div class="player-healt-container">
-                <div class="progress">
-                  <div class="progress-bar progress-bar-success" role="progressbar" id="player1-health">
-                  </div>
-                </div>
-                <p>health</p>
-              </div>
-            </div>
-
-            <div class="player-image">
-              <center><img src="media/landing-page/son-angry.png" alt=""></center>
-            </div>
-          </div>
 
           <!-- GAME BOARD HERE -->
-          <div class="col-xs-6 mid">
+          <div class="col-sm-12 col-md-6 col-md-push-3 mid">
             <div class="board">
               <div class="board-row">
                 <div class="col player1-next"></div>
@@ -171,11 +143,12 @@
             </div>
           </div>
 
-          <div class="col-xs-3 player-info">
+          <!-- PLAYER 1 INFO -->
+          <div class="col-xs-6 col-sm-6 col-md-3 col-md-pull-6 player-info">
             <div class="player-weapon">
               <div class="player-weapon-container">
-                <div id="player2-weapon-image"></div>
-                <p id="player2-weapon-desc">plunger - 15 attack damage</p>
+                <div id="player1-weapon-image"></div>
+                <p><span id="player1-weapon-name">slippers</span> - <span id="player1-weapon-damage">20</span> dmg</p>
               </div>
             </div>
 
@@ -187,11 +160,37 @@
 
             <div class="player-health">
               <div class="player-healt-container">
-                <div class="progress">
-                  <div class="progress-bar progress-bar-success" role="progressbar" id="player2-health">
-                  </div>
+                <div class="health-bar">
+                  <div class="health" id="player1-health"></div>
                 </div>
-                <p>health</p>
+              </div>
+            </div>
+
+            <div class="player-image">
+              <center><img src="media/landing-page/son-angry.png" alt=""></center>
+            </div>
+          </div>
+
+          <!-- PLAYER 2 INFO -->
+          <div class="col-xs-6 col-sm-6 col-md-3 player-info">
+            <div class="player-weapon">
+              <div class="player-weapon-container">
+                <div id="player2-weapon-image"></div>
+                <p><span id="player2-weapon-name">Plunger</span> - <span id="player2-weapon-damage">15</span> dmg</p>
+              </div>
+            </div>
+
+            <div class="player-actions">
+              <div class="player-actions-container">
+                <p>Reserved for player actions</p>
+              </div>
+            </div>
+
+            <div class="player-health">
+              <div class="player-healt-container">
+                <div class="health-bar">
+                  <div class="health" id="player2-health"></div>
+                </div>
               </div>
             </div>
 
@@ -206,5 +205,11 @@
     <!-- SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
     <script src="assets/js/playBoardStyle.js" charset="utf-8"></script>
+    <script src="assets/js/game/Game.js" charset="utf-8"></script>
+    <script src="assets/js/game/Map.js" charset="utf-8"></script>
+    <script src="assets/js/game/Player.js" charset="utf-8"></script>
+    <script src="assets/js/game/Obstacle.js" charset="utf-8"></script>
+    <script src="assets/js/game/Weapon.js" charset="utf-8"></script>
+    <script src="assets/js/game/gameHandler.js" charset="utf-8"></script>
   </body>
 </html>
