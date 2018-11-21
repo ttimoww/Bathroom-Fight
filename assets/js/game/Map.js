@@ -41,9 +41,8 @@ class Map{
   * 3. Return array
   */
   generateObstacles(nOO){
-    const randomNumber = (min, max) => Math.floor(Math.random() * max) + min;
+    const randomNumber = (min, max) => Math.floor(Math.random() * (max - 1)) + min;
     const obstacles = [];
-
     function obstacleExists(x, y){
       for (var i = 0; i < obstacles.length; i++) {
         if (typeof(i) != 'undefined') {
@@ -57,8 +56,8 @@ class Map{
 
 
     for (var i = 0; i < nOO; i++) {
-      let x = randomNumber(2, 8);
-      let y = randomNumber(2, 8);
+      let x = randomNumber(2, 9);
+      let y = randomNumber(2, 9);
 
       if (obstacleExists(x, y) === false) {
         const o = new Obstacle(x, y);

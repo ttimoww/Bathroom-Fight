@@ -1,15 +1,15 @@
 $(document).ready(function(){
-  const waitTime = 1000;
+  const waitTime = 10000;
   $('.start-game').click(function(){
     $('.landing-page').fadeOut(1000, function(){
       $('.bridge-page').fadeIn(1000, function(){
         setTimeout(function(){
 
-          $('.bridge-page').fadeOut(waitTime, function(){
+          $('.bridge-page').fadeOut(1000, function(){
             window.location = 'game.html';
           })
 
-        }, 1000);
+        }, waitTime);
       });
     })
   })
