@@ -2,7 +2,6 @@ class Map{
   constructor(nOO){
     this.generateMap();
     this.obstacles = this.generateObstacles(nOO);
-
   }
 
   /**
@@ -54,8 +53,8 @@ class Map{
     }
 
     for (var i = 0; i < nOO; i++) {
-      let x = randomNumber(2, 9);
-      let y = randomNumber(2, 9);
+      let x = randomNumber(1, 10);
+      let y = randomNumber(1, 10);
 
       if (obstacleExists(x, y) === false) {
         const o = new Obstacle(x, y);

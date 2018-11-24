@@ -210,15 +210,3 @@ h1, h2, p{
 }
 
 /* STYLES MANIPULATED BY JAVASCRIPT */
-
-#player1-health{
-  width: 50%;
-}
-
-#player2-health{
-  width: 33%;
-}
-
-/* For weapon name and damage set innerhtml to:
-#player1-weapon-name & #player1-weapon-damage
-#player2-weapon-name & #player2-weapon-damage */

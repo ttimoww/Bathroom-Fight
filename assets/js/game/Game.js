@@ -6,8 +6,7 @@ class Game{
     this.weapons = this.initWeapons();
     this.players = this.initPlayers();
     this.gameOver = false;
-    //this.initTurn();
-    this.do();
+    this.initTurn(this.getPlayer(this.playerTurn));
   }
 
   /**
@@ -40,8 +39,8 @@ class Game{
   initPlayers(){
     const players = [];
     const hand = this.getWeapon(1);
-    const p1 = new Player(1, 'Bob', hand, 5, 5);
-    const p2 = new Player(2, 'Sophie', hand,  5, 7);
+    const p1 = new Player(1, 'Bob', hand, 1, 10);
+    const p2 = new Player(2, 'Sophie', hand,  10, 1);
     players.push(p1);
     players.push(p2);
     return players;
@@ -92,76 +91,86 @@ class Game{
       player.setWeapon(weapon);
     }
     $newcol.attr('state', `player${player.playerID}`).append($player);
+    console.log(`old: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
     player.playerLocationX =  newx;
     player.playerLocationY =  newy;
-
-    this.clearTurn();
+    console.log(`new: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
+    this.clearTurn(player);
 
     // TODO: Check if fight has to start
   }
 
   /**
-  * 1. availableMoves()
-  *   1.1 Get player id and coordinates
-  *   1.2 Create empty arrays
-  *   1.2 For: Find colls around player and add them to arrays
-  *     1.3 initColls(array)
-  *     1.4 Loop over array, if col state is empty or weapon
-  *     1.5 Add class and eventlistener to column
+  * 1. Get player id and coordinates
+  * 2. Create empty arrays
+  * 3. For: Find colls around player and add them to arrays
+  * 4. initCols(array)
+  *   4.1. Loop over array, if col state is empty or weapon
+  *   4.2. Add class and eventlistener to column
   */
   initTurn(player){
+    console.log(`Initalizing turn of player ${player.playerName}`);
     const that = this;
-    function availableMoves(pl){
-      const player = pl;
-      const playerID = player.playerID;
-      const x = player.playerLocationX;
-      const y = player.playerLocationY;
-      const collsRight = [];
-      const collsUp = [];
-      const collsLeft = [];
-      const collsDown = [];
+    const playerID = player.playerID;
+    const x = player.playerLocationX;
+    const y = player.playerLocationY;
+    console.log(`find available moves for ${player.playerName} from x:${x} y:${y}`);
+    let collsRight = [];
+    let collsUp = [];
+    let collsLeft = [];
+    let collsDown = [];
 
-      //Colls up & right
-      for (var i = 1; i < 4; i++) {
-        let $colRight = $(`.col[x=${x+i}][y=${y}]`);
-        collsRight.push($colRight);
-        let $colUp = $(`.col[x=${x}][y=${y+i}]`);
-        collsUp.push($colUp);
-        let $colLeft = $(`.col[x=${x-i}][y=${y}]`);
-        collsLeft.push($colLeft);
-        let $colDown = $(`.col[x=${x}][y=${y-i}]`);
-        collsDown.push($colDown);
-      }
+    //Colls up & right
+    for (var i = 1; i < 4; i++) {
+      let $colRight = $(`.col[x=${parseInt(x)+parseInt(i)}][y=${y}]`);
+      collsRight.push($colRight);
 
-      function initColls(array){
-        for (var i = 0; i < array.length; i++) {
-          const x = array[i].attr('x');
-          const y = array[i].attr('y');
-          const $col = $(`.col[x='${x}'][y='${y}']`);
-          if ($col.attr('state') === 'empty' || $col.attr('state') === 'weapon'){
-            $col.addClass(`player${playerID}-next`).click(function(){
-              const x = $(this).attr('x');
-              const y = $(this).attr('y');
-              that.movePlayer(player, x, y);
-            });
-          }else{
-            break;
-          }
+      let $colUp = $(`.col[x=${x}][y=${parseInt(y)+parseInt(i)}]`);
+      collsUp.push($colUp);
+
+      let $colLeft = $(`.col[x=${parseInt(x)-parseInt(i)}][y=${y}]`);
+      collsLeft.push($colLeft);
+
+      let $colDown = $(`.col[x=${x}][y=${parseInt(y)-parseInt(i)}]`);
+      collsDown.push($colDown);
+    }
+
+    function initColls(array){
+      for (var i = 0; i < array.length; i++) {
+        const x = array[i].attr('x');
+        const y = array[i].attr('y');
+        const $col = $(`.col[x='${x}'][y='${y}']`);
+        if ($col.attr('state') === 'empty'){
+          $col.addClass(`player${playerID}-next`).click(function(){
+            const x = $(this).attr('x');
+            const y = $(this).attr('y');
+            that.movePlayer(player, x, y);
+          });
+        }else{
+          break;
         }
       }
-      initColls(collsRight);
-      initColls(collsUp);
-      initColls(collsLeft);
-      initColls(collsDown);
     }
-    availableMoves(player);
+    initColls(collsRight);
+    initColls(collsUp);
+    initColls(collsLeft);
+    initColls(collsDown);
   }
 
-  clearTurn(){
-
-  }
-
-  do(){
+  /**
+  * 1. Remove player-next classes
+  * 2. Remove event handlers
+  * 3. Change playerTurn
+  * 4. init new Turn
+  */
+  clearTurn(pl){
+    console.log(`Clearing turn of player ${pl.playerName}`);
+    $('.col').removeClass(`player${pl.playerID}-next`).unbind('click');
+    if (this.playerTurn === 1){
+      this.playerTurn = 2;
+    }else {
+      this.playerTurn = 1;
+    }
     this.initTurn(this.getPlayer(this.playerTurn));
   }
 }
