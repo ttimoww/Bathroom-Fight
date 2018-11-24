@@ -14,15 +14,15 @@ class Game{
   */
   initWeapons(){
     const weapons = [];
-    const w1 = new Weapon(1, 'hand', 6, 'weapon-hand');
+    const w1 = new Weapon(1, 'hand', 8, 'weapon-hand');
     weapons.push(w1);
-    const w2 = new Weapon(2, 'toothbrush', 7, 'weapon-toothbrush', true);
+    const w2 = new Weapon(2, 'toothbrush', 10, 'weapon-toothbrush', true);
     weapons.push(w2);
-    const w3 = new Weapon(3, 'wet towel', 9, 'weapon-towel', true);
+    const w3 = new Weapon(3, 'wet towel', 12, 'weapon-towel', true);
     weapons.push(w3);
-    const w4 = new Weapon(4, 'slippers', 12, 'weapon-slippers', true);
+    const w4 = new Weapon(4, 'slippers', 14, 'weapon-slippers', true);
     weapons.push(w4);
-    const w5 = new Weapon(5, 'plunger', 14, 'weapon-plunger', true);
+    const w5 = new Weapon(5, 'plunger', 16, 'weapon-plunger', true);
     weapons.push(w5);
     return weapons;
   }

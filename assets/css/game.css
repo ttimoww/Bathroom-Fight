@@ -39,6 +39,7 @@ h1, h2, p{
 }
 
 .player-weapon-container p{
+  margin-top: 5px;
   font-size: 1.3em;
 }
 
@@ -209,13 +210,6 @@ h1, h2, p{
 }
 
 /* STYLES MANIPULATED BY JAVASCRIPT */
-#player1-weapon-image{
-  background-image: url(../../media/game/weapons/slippers.png);
-}
-
-#player2-weapon-image{
-  background-image: url(../../media/game/weapons/plunger.png);
-}
 
 #player1-health{
   width: 50%;
