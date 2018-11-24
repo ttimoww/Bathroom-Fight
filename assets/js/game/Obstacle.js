@@ -12,8 +12,8 @@ class Obstacle{
   * 3. Add obstacle's class name
   */
   placeObstacle(){
-    console.log(`Placing obstacle on: (${this.obstacleLocationX}, ${this.obstacleLocationY}) With class: ${this.obstacleClass}`);
+    // console.log(`Placing obstacle on: (${this.obstacleLocationX}, ${this.obstacleLocationY}) With class: ${this.obstacleClass}`);
     const $col = $(`.col[x=${this.obstacleLocationX}][y=${this.obstacleLocationY}]`);
-    $col.removeClass('empty').addClass(this.obstacleClass);
+    $col.attr('state', 'obstacle').addClass(this.obstacleClass);
   }
 }

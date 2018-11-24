@@ -1,5 +1,3 @@
-// TODO: Check if obstacle is spawned at (0,0) or (10,10)
-
 class Map{
   constructor(nOO){
     this.generateMap();
@@ -20,8 +18,8 @@ class Map{
       $boardRow.addClass('board-row');
       for (let j = 0; j < 10; j++) {
         const $col = $('<div>')
-        $col.addClass('col').addClass('empty');
-        $col.attr('x', j+1).attr('y', i);
+        $col.addClass('col');
+        $col.attr('state', 'empty').attr('x', j+1).attr('y', i);
         $boardRow.append($col);
       }
       $board.append($boardRow);
@@ -36,11 +34,12 @@ class Map{
   *    2.1.1 Loop over all objects
   *      2.1.2 Check if parameter coordinates with one of obstacles
   *      2.1.3 If exists return true, else return false
-  *    2.2 Create new obstacle
+  *    2.2 Create new obstacles
   *    2.3  Add to array
   * 3. Return array
   */
   generateObstacles(nOO){
+    console.log(`Spawing: ${nOO} obstacles`);
     const randomNumber = (min, max) => Math.floor(Math.random() * (max - 1)) + min;
     const obstacles = [];
     function obstacleExists(x, y){
@@ -53,7 +52,6 @@ class Map{
       }
       return false;
     }
-
 
     for (var i = 0; i < nOO; i++) {
       let x = randomNumber(2, 9);
