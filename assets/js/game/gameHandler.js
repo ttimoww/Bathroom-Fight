@@ -1,5 +1,5 @@
 // Game variables
-const numberOfObstacles = 20;
+const numberOfObstacles = 0;
 const firstPlayer = 1;
 
 $(document).ready(function(){

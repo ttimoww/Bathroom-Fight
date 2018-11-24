@@ -34,15 +34,23 @@ class Weapon{
         }
       }
       while (true) {
-        let x = randomNumber(1, 10);
-        let y = randomNumber(1, 10);
+        let x = randomNumber(3, 6);
+        let y = randomNumber(3, 6); //1 10
         if (isColEmpty(x, y) === true) {
           const $col = $(`.col[x=${x}][y=${y}]`);
-          $col.attr('weaponID', this.weaponID)
-          $col.attr('state', 'weapon').addClass(this.weaponClass);
+          $col.attr('weaponID', this.weaponID).attr('state', 'weapon').addClass(this.weaponClass);
           break;
         }
       }
     }
+  }
+
+  /*
+  * 1. Get the col
+  * 2. Add attributes and class
+  */
+  spawnWeaponFixed(x, y){
+    const $col = $(`.col[x=${x}][y=${y}]`);
+    $col.attr('weaponID', this.weaponID).attr('state', 'weapon').addClass(this.weaponClass);
   }
 }

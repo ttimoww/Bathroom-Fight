@@ -39,6 +39,16 @@ class Player{
   }
 
   /**
+  * 1. Remove previous weapon class before setting new one
+  * 2. Set new weapon and update player info
+  */
+  setWeapon(w){
+    $(`#player${this.playerID}-weapon-image`).removeClass(`${this.playerWeapon.weaponClass}`);
+    this.playerWeapon = w;
+    this.playerInfoToPage();
+  }
+
+  /**
   * 1. Get weapon damage
   * 2. Get opponent state
   * 3. Deal damage (x0.5 if state is defending)
