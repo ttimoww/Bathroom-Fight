@@ -11,7 +11,7 @@ class Weapon{
   /*
   *     Functions that returns an random number between parameters
   *     Function that checks if col is empty
-  *         Returns false if col is not empty or is spawn col
+  *         Returns false if col is not empty, has a weapon on it or is spawn col
   * 1. Start while loop
   * 2. Generate random numbers
   * 3. If col is empty, add weapon to col
@@ -23,7 +23,10 @@ class Weapon{
       const randomNumber = (min, max) => Math.floor(Math.random() * (max - 1)) + min;
       function isColEmpty(x, y){
         const $col = $(`.col[x=${x}][y=${y}]`);
+        const colWeaponAttr = $col.attr('weaponID');
         if ($col.attr('state') !== 'empty') {
+          return false;
+        }else if (typeof colWeaponAttr !== typeof undefined && colWeaponAttr !== false){
           return false;
         }else if (x === 1 && y === 10) {
           return false;
@@ -38,7 +41,7 @@ class Weapon{
         let y = randomNumber(3, 6); //1 10
         if (isColEmpty(x, y) === true) {
           const $col = $(`.col[x=${x}][y=${y}]`);
-          $col.attr('weaponID', this.weaponID).attr('state', 'weapon').addClass(this.weaponClass);
+          $col.attr('weaponID', this.weaponID).addClass(this.weaponClass);
           break;
         }
       }

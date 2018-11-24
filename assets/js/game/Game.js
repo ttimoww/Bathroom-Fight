@@ -68,30 +68,30 @@ class Game{
   * 2. Get the old col & change state to empty
   * 3. Detach player
   * 4. Get new col
-  * 5. If new col has state weapon
-  *   5.1 Get weapon and weapon object
+  * 5. If new col has weapon
+  *   5.1 Get weaponID and weapon object
   *   5.2 Remove weapon info on col
-  *   5.3 Set new weapon on Player
+  *   5.3 Drop player old weapon
+  *   5.3 Set player new weapon
   * 6. Append player to new color
   * 7. Set player new location
   */
-  movePlayer(player, x, y){
-    const playerID = player.playerID;
+  movePlayer(player, newx, newy){
     const oldx = player.playerLocationX;
     const oldy = player.playerLocationY;
-    const newx = x;
-    const newy = y;
-    const $oldcol = $(`.col[x='${oldx}'][y='${oldy}']`);
-    $oldcol.attr('state', 'empty');
-    const $player = $(`#player${playerID}`).detach();
+    const $oldcol = $(`.col[x='${oldx}'][y='${oldy}']`).attr('state', 'empty');
+    const $player = $(`#player${player.playerID}`).detach();
     const $newcol = $(`.col[x='${newx}'][y='${newy}']`);
-    if ($newcol.attr('state') === 'weapon'){
+    // If new col has a weapon on him
+    const newColWeaponAttr = $newcol.attr('weaponID');
+    if (typeof newColWeaponAttr !== typeof undefined && newColWeaponAttr !== false){
       const weaponID = parseInt($newcol.attr('weaponid'));
       const weapon = this.getWeapon(weaponID);
       $newcol.removeClass(weapon.weaponClass).removeAttr('weaponid');
+      player.playerWeapon.spawnWeaponFixed(newx, newy);
       player.setWeapon(weapon);
     }
-    $newcol.attr('state', `player${playerID}`).append($player);
+    $newcol.attr('state', `player${player.playerID}`).append($player);
     player.playerLocationX =  newx;
     player.playerLocationY =  newy;
 
