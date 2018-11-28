@@ -6,7 +6,7 @@ class Game{
     this.weapons = this.initWeapons();
     this.players = this.initPlayers();
     this.gameOver = false;
-    this.initTurn(this.getPlayer(this.playerTurn));
+    this.startGame();
   }
 
   /**
@@ -16,15 +16,15 @@ class Game{
   */
   initWeapons(){
     const weapons = [];
-    const w1 = new Weapon(1, 'hand', 8, 'weapon-hand');
+    const w1 = new Weapon(1, 'Hand', 8, 'weapon-hand');
     weapons.push(w1);
-    const w2 = new Weapon(2, 'toothbrush', 10, 'weapon-toothbrush', true);
+    const w2 = new Weapon(2, 'Toothbrush', 10, 'weapon-toothbrush', true);
     weapons.push(w2);
-    const w3 = new Weapon(3, 'wet towel', 12, 'weapon-towel', true);
+    const w3 = new Weapon(3, 'Wet Towel', 12, 'weapon-towel', true);
     weapons.push(w3);
-    const w4 = new Weapon(4, 'slippers', 14, 'weapon-slippers', true);
+    const w4 = new Weapon(4, 'Slippers', 14, 'weapon-slippers', true);
     weapons.push(w4);
-    const w5 = new Weapon(5, 'plunger', 16, 'weapon-plunger', true);
+    const w5 = new Weapon(5, 'Plunger', 16, 'weapon-plunger', true);
     weapons.push(w5);
     return weapons;
   }
@@ -96,8 +96,39 @@ class Game{
     player.playerLocationY =  newy;
     console.log(`new: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
     this.clearTurn(player);
+  }
 
-    // TODO: Check if fight has to start
+/**
+* 1. Create empty array
+* 2. Get player coordinates
+* 3. Find surrounding colls and add them to array
+* 4. Check state for each col
+*   4.1 If state is other player, return true
+* 5. Return false
+*/
+  checkForFight(player){
+    const surroundingColls = [];
+    const x = player.playerLocationX;
+    const y = player.playerLocationY;
+    for (var i = -1; i < 3; i+=2) {
+      const $colx = $(`.col[x=${parseInt(x)+parseInt(i)}][y=${y}]`);
+      const $coly = $(`.col[x=${x}][y=${parseInt(y)+parseInt(i)}]`);
+      surroundingColls.push($colx, $coly);
+    }
+    for (var i = 0; i < surroundingColls.length; i++) {
+      let $col = surroundingColls[i];
+      if ($col.attr('state') === 'player1' || $col.attr('state') === 'player2') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+  *
+  */
+  startFight(player){
+    console.log('Start fight');
   }
 
   /**
@@ -161,16 +192,27 @@ class Game{
   * 1. Remove player-next classes
   * 2. Remove event handlers
   * 3. Change playerTurn
-  * 4. init new Turn
+  * 4. Check for fight
+  *   4.1 If true, start the fight
+  * 5. init new Turn
   */
-  clearTurn(pl){
-    console.log(`Clearing turn of player ${pl.playerName}`);
-    $('.col').removeClass(`player${pl.playerID}-next`).unbind('click');
+  clearTurn(player){
+    console.log(`Clearing turn of player ${player.playerName}`);
+    $('.col').removeClass(`player${player.playerID}-next`).unbind('click');
     if (this.playerTurn === 1){
       this.playerTurn = 2;
     }else {
       this.playerTurn = 1;
     }
+    if (this.checkForFight(player) === true) {
+      console.log('Start fight');
+      this.startFight(player);
+    } else{
+      this.initTurn(this.getPlayer(this.playerTurn));
+    }
+  }
+
+  startGame(){
     this.initTurn(this.getPlayer(this.playerTurn));
   }
 }
