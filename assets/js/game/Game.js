@@ -16,15 +16,15 @@ class Game{
   */
   initWeapons(){
     const weapons = [];
-    const w1 = new Weapon(1, 'Hand', 8, 'weapon-hand');
+    const w1 = new Weapon(1, 'Hand', 10, 'weapon-hand');
     weapons.push(w1);
-    const w2 = new Weapon(2, 'Toothbrush', 10, 'weapon-toothbrush', true);
+    const w2 = new Weapon(2, 'Toothbrush', 115, 'weapon-toothbrush', true);
     weapons.push(w2);
-    const w3 = new Weapon(3, 'Wet Towel', 12, 'weapon-towel', true);
+    const w3 = new Weapon(3, 'Wet Towel', 17, 'weapon-towel', true);
     weapons.push(w3);
-    const w4 = new Weapon(4, 'Slippers', 14, 'weapon-slippers', true);
+    const w4 = new Weapon(4, 'Slippers', 19, 'weapon-slippers', true);
     weapons.push(w4);
-    const w5 = new Weapon(5, 'Plunger', 16, 'weapon-plunger', true);
+    const w5 = new Weapon(5, 'Plunger', 22, 'weapon-plunger', true);
     weapons.push(w5);
     return weapons;
   }
@@ -40,7 +40,7 @@ class Game{
     const players = [];
     const hand = this.getWeapon(1);
     const p1 = new Player(1, 'Bob', hand, 1, 10);
-    const p2 = new Player(2, 'Sophie', hand,  10, 1);
+    const p2 = new Player(2, 'Sophie', hand,  10, 10);
     players.push(p1);
     players.push(p2);
     return players;
@@ -98,14 +98,28 @@ class Game{
     this.clearTurn(player);
   }
 
-/**
-* 1. Create empty array
-* 2. Get player coordinates
-* 3. Find surrounding colls and add them to array
-* 4. Check state for each col
-*   4.1 If state is other player, return true
-* 5. Return false
-*/
+  /**
+  * 1. Get both players
+  * 2. Check the health of both players
+  */
+  checkForWin(){
+    const p1 = this.getPlayer(1);
+    const p2 = this.getPlayer(2);
+    if (p1.playerHealth <= 0 ) {
+      alert('Game over p2 won');
+    }else if (p2.playerHealth <= 0) {
+      alert('Game over p1 won');
+    }
+  }
+
+  /**
+  * 1. Create empty array
+  * 2. Get player coordinates
+  * 3. Find surrounding colls and add them to array
+  * 4. Check state for each col
+  *   4.1 If state is other player, return true
+  * 5. Return false
+  */
   checkForFight(player){
     const surroundingColls = [];
     const x = player.playerLocationX;
@@ -125,10 +139,48 @@ class Game{
   }
 
   /**
-  *
+  * 1. initFightTurn()
+  *   1.1 Get the opponent
+  *   1.2 Set player state to attack
+  *   1.3 Set eventlisteners on player buttons
+  * 2. clearFightTurn()
+  *   2.1 Disable both buttons
+  *   2.2 Check for win
+  *   2.3 Init turn for other player
   */
   startFight(player){
-    console.log('Start fight');
+    const that = this;
+    console.log(`${player.playerName} started a fight!`);
+
+    function initFightTurn(player){
+      if (player.playerID === 1) {
+        var opponent = that.getPlayer(2);
+      }else{
+        var opponent = that.getPlayer(1);
+      }
+      player.playerState = 'attack';
+      $(`#player${player.playerID}-defend`).prop('disabled', false).click(function(){
+        player.playerState = 'defend';
+        clearFightTurn(player);
+      });
+      $(`#player${player.playerID}-attack`).prop('disabled', false).click(function(){
+        player.attack(opponent);
+        clearFightTurn(player);
+      });
+    }
+
+    function clearFightTurn(player){
+      $(`#player${player.playerID}-defend`).prop('disabled', true).unbind('click');
+      $(`#player${player.playerID}-attack`).prop('disabled', true).unbind('click');
+      that.checkForWin();
+      if (player.playerID === 1) {
+        initFightTurn(that.getPlayer(2));
+      }else{
+        initFightTurn(that.getPlayer(1))
+      }
+    }
+
+    initFightTurn(player);
   }
 
   /**
@@ -205,7 +257,6 @@ class Game{
       this.playerTurn = 1;
     }
     if (this.checkForFight(player) === true) {
-      console.log('Start fight');
       this.startFight(player);
     } else{
       this.initTurn(this.getPlayer(this.playerTurn));
