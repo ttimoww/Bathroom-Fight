@@ -63,42 +63,6 @@ class Game{
   }
 
   /**
-  * 1. Get the player's ID, current postition and new position
-  * 2. Get the old col & change state to empty
-  * 3. Detach player
-  * 4. Get new col
-  * 5. If new col has weapon
-  *   5.1 Get weaponID and weapon object
-  *   5.2 Remove weapon info on col
-  *   5.3 Drop player old weapon
-  *   5.3 Set player new weapon
-  * 6. Append player to new color
-  * 7. Set player new location
-  */
-  movePlayer(player, newx, newy){
-    const oldx = player.playerLocationX;
-    const oldy = player.playerLocationY;
-    const $oldcol = $(`.col[x='${oldx}'][y='${oldy}']`).attr('state', 'empty');
-    const $player = $(`#player${player.playerID}`).detach();
-    const $newcol = $(`.col[x='${newx}'][y='${newy}']`);
-    // If new col has a weapon on him
-    const newColWeaponAttr = $newcol.attr('weaponID');
-    if (typeof newColWeaponAttr !== typeof undefined && newColWeaponAttr !== false){
-      const weaponID = parseInt($newcol.attr('weaponid'));
-      const weapon = this.getWeapon(weaponID);
-      $newcol.removeClass(weapon.weaponClass).removeAttr('weaponid');
-      player.playerWeapon.spawnWeaponFixed(newx, newy);
-      player.setWeapon(weapon);
-    }
-    $newcol.attr('state', `player${player.playerID}`).append($player);
-    console.log(`old: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
-    player.playerLocationX =  newx;
-    player.playerLocationY =  newy;
-    console.log(`new: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
-    this.clearTurn(player);
-  }
-
-  /**
   * 1. initWinPage()
   *   1.1 Hide the game page
   *   1.2 Show the end game page
@@ -127,93 +91,56 @@ class Game{
     }
   }
 
-  /**
-  * 1. Create empty array
-  * 2. Get player coordinates
-  * 3. Find surrounding colls and add them to array
-  * 4. Check state for each col
-  *   4.1 If state is other player, return true
-  * 5. Return false
+  /** Move player to new location
+  * 1. Get the player's ID, current postition and new position
+  * 2. Get the old col & change state to empty
+  * 3. Detach player
+  * 4. Get new col
+  * 5. If new col has weapon
+  *   5.1 Get weaponID and weapon object
+  *   5.2 Remove weapon info on col
+  *   5.3 Drop player old weapon
+  *   5.3 Set player new weapon
+  * 6. Set player new location
+  * 7. Append player to new col
+  * 8. If player is next to opponent, init an attack
+  * 9. Else, init turn for other player
   */
-  checkForFight(player){
-    const surroundingColls = [];
-    const x = player.playerLocationX;
-    const y = player.playerLocationY;
-    for (var i = -1; i < 3; i+=2) {
-      const $colx = $(`.col[x=${parseInt(x)+parseInt(i)}][y=${y}]`);
-      const $coly = $(`.col[x=${x}][y=${parseInt(y)+parseInt(i)}]`);
-      surroundingColls.push($colx, $coly);
+  movePlayer(player, newx, newy){
+    const oldx = player.playerLocationX;
+    const oldy = player.playerLocationY;
+    const $oldcol = $(`.col[x='${oldx}'][y='${oldy}']`).attr('state', 'empty');
+    const $player = $(`#player${player.playerID}`).detach();
+    const $newcol = $(`.col[x='${newx}'][y='${newy}']`);
+    // If new col has a weapon on him
+    const newColWeaponAttr = $newcol.attr('weaponID');
+    if (typeof newColWeaponAttr !== typeof undefined && newColWeaponAttr !== false){
+      const weaponID = parseInt($newcol.attr('weaponid'));
+      const weapon = this.getWeapon(weaponID);
+      $newcol.removeClass(weapon.weaponClass).removeAttr('weaponid');
+      player.playerWeapon.spawnWeaponFixed(newx, newy);
+      player.setWeapon(weapon);
     }
-    for (var i = 0; i < surroundingColls.length; i++) {
-      let $col = surroundingColls[i];
-      if ($col.attr('state') === 'player1' || $col.attr('state') === 'player2') {
-        return true;
-      }
+    player.playerLocationX =  newx;
+    player.playerLocationY =  newy;
+    $newcol.attr('state', `player${player.playerID}`).append($player);
+    console.log(`old: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
+    console.log(`new: x: ${player.playerLocationX} - y: ${player.playerLocationY}`);
+
+    this.clearMoves(player);
+    if (this.checkForAttack(player) === true) {
+      this.initAttack(player)
+    }else if (player.playerID === 1) {
+      this.clearAttack(player);
+      this.initTurn(this.getPlayer(2));
+    }else{
+      this.clearAttack(player);
+      this.initTurn(this.getPlayer(1))
     }
-    return false;
   }
 
   /**
-  * 1. initFightTurn()
-  *   1.1 Get the opponent
-  *   1.2 Set player state to attack
-  *   1.3 Set eventlisteners on player buttons
-  * 2. clearFightTurn()
-  *   2.1 Disable both buttons
-  *   2.2 Check for win
-  *   2.3 Init turn for other player
-  * 3. animateButtons(elem)
-  *   3.1 Add and remove margin on element to create bounce
-  */
-  startFight(player){
-    const that = this;
-    console.log(`${player.playerName} started a fight!`);
-
-    function initFightTurn(player){
-      if (player.playerID === 1) {
-        var opponent = that.getPlayer(2);
-      }else{
-        var opponent = that.getPlayer(1);
-      }
-      player.playerState = 'attack';
-      animateButtons(`#player${player.playerID}-defend`);
-      animateButtons(`#player${player.playerID}-attack`);
-
-      $(`#player${player.playerID}-defend`).prop('disabled', false).click(function(){
-        player.playerState = 'defend';
-        clearFightTurn(player);
-      });
-      $(`#player${player.playerID}-attack`).prop('disabled', false).click(function(){
-        player.attack(opponent);
-        clearFightTurn(player);
-      });
-    }
-
-    function clearFightTurn(player){
-      $(`#player${player.playerID}-defend`).prop('disabled', true).unbind('click');
-      $(`#player${player.playerID}-attack`).prop('disabled', true).unbind('click');
-      that.checkForWin();
-      if (player.playerID === 1) {
-        initFightTurn(that.getPlayer(2));
-      }else{
-        initFightTurn(that.getPlayer(1))
-      }
-    }
-
-    function animateButtons(elem){
-      $(elem).animate({
-        'margin-bottom': '10px'
-      },100, function(){
-        $(this).animate({
-          'margin-bottom': '0px'
-        },100)
-      })
-    }
-
-    initFightTurn(player);
-  }
-
-  /**
+  ** Sets eventlistners on surrounding colls
   * 1. Get player id and coordinates
   * 2. Create empty arrays
   * 3. For: Find colls around player and add them to arrays
@@ -221,8 +148,8 @@ class Game{
   *   4.1. Loop over array, if col state is empty or weapon
   *   4.2. Add class and eventlistener to column
   */
-  initTurn(player){
-    console.log(`Initalizing turn of player ${player.playerName}`);
+  initMoves(player){
+    console.log(`Initalizing moves of player ${player.playerName}`);
     const that = this;
     const playerID = player.playerID;
     const x = player.playerLocationX;
@@ -271,26 +198,100 @@ class Game{
   }
 
   /**
-  * 1. Remove player-next classes
-  * 2. Remove event handlers
-  * 3. Change playerTurn
-  * 4. Check for fight
-  *   4.1 If true, start the fight
-  * 5. init new Turn
+  * Remove player-next classes and eventlisteners
   */
-  clearTurn(player){
-    console.log(`Clearing turn of player ${player.playerName}`);
+  clearMoves(player){
+    console.log(`Clearing moves of player ${player.playerName}`);
     $('.col').removeClass(`player${player.playerID}-next`).unbind('click');
-    if (this.playerTurn === 1){
-      this.playerTurn = 2;
-    }else {
-      this.playerTurn = 1;
+  }
+
+  /**  Returns bolean if players are alined
+  * 1. Create empty array
+  * 2. Get player coordinates
+  * 3. Find surrounding colls and add them to array
+  * 4. Check state for each col
+  *   4.1 If state is other player, return true
+  * 5. Return false
+  */
+  checkForAttack(player){
+    const surroundingColls = [];
+    const x = player.playerLocationX;
+    const y = player.playerLocationY;
+    for (var i = -1; i < 3; i+=2) {
+      const $colx = $(`.col[x=${parseInt(x)+parseInt(i)}][y=${y}]`);
+      const $coly = $(`.col[x=${x}][y=${parseInt(y)+parseInt(i)}]`);
+      surroundingColls.push($colx, $coly);
     }
-    if (this.checkForFight(player) === true) {
-      this.startFight(player);
-    } else{
-      this.initTurn(this.getPlayer(this.playerTurn));
+    for (var i = 0; i < surroundingColls.length; i++) {
+      let $col = surroundingColls[i];
+      if ($col.attr('state') === 'player1' || $col.attr('state') === 'player2') {
+        return true;
+      }
     }
+    return false;
+  }
+
+
+  /**  Sets an attack move for the player
+  * 1. Get the opponent
+  * 2. Set player state to attack
+  * 3. Set eventlisteners on player buttons
+  */
+  initAttack(player){
+    const that = this;
+    if (player.playerID === 1) {
+      var opponent = this.getPlayer(2);
+    }else{
+      var opponent = this.getPlayer(1);
+    }
+    player.playerState = 'attack';
+    animateButtons(`#player${player.playerID}-defend`);
+    animateButtons(`#player${player.playerID}-attack`);
+
+    $(`#player${player.playerID}-defend`).prop('disabled', false).click(function(){
+      player.playerState = 'defend';
+      that.clearAttack(player);
+    });
+    $(`#player${player.playerID}-attack`).prop('disabled', false).click(function(){
+      player.attack(opponent);
+      that.clearAttack(player);
+    });
+
+    function animateButtons(elem){
+      $(elem).animate({
+        'margin-bottom': '10px'
+      },100, function(){
+        $(this).animate({
+          'margin-bottom': '0px'
+        },100)
+      })
+    }
+  }
+
+  /**
+  * 1. Disable the attack/defend buttons
+  */
+  clearAttack(player){
+    $(`#player${player.playerID}-defend`).prop('disabled', true).unbind('click');
+    $(`#player${player.playerID}-attack`).prop('disabled', true).unbind('click');
+    this.checkForWin();
+    if (player.playerID === 1) {
+      this.initTurn(this.getPlayer(2));
+    }else{
+      this.initTurn(this.getPlayer(1))
+    }
+  }
+
+  /**
+  * 1. If players are next to each other, player can attack
+  * 2. Init available moves or player
+  */
+  initTurn(player){
+    const that = this;
+    if (this.checkForAttack(player) === true) {
+      that.initAttack(player);
+    }
+    this.initMoves(player);
   }
 
   startGame(){
