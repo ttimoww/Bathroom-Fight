@@ -16,9 +16,9 @@ class Game{
   */
   initWeapons(){
     const weapons = [];
-    const w1 = new Weapon(1, 'Hand', 10, 'weapon-hand');
+    const w1 = new Weapon(1, 'Hand', 13, 'weapon-hand');
     weapons.push(w1);
-    const w2 = new Weapon(2, 'Toothbrush', 115, 'weapon-toothbrush', true);
+    const w2 = new Weapon(2, 'Toothbrush', 15, 'weapon-toothbrush', true);
     weapons.push(w2);
     const w3 = new Weapon(3, 'Wet Towel', 17, 'weapon-towel', true);
     weapons.push(w3);
@@ -40,7 +40,7 @@ class Game{
     const players = [];
     const hand = this.getWeapon(1);
     const p1 = new Player(1, 'Bob', hand, 1, 10);
-    const p2 = new Player(2, 'Sophie', hand,  10, 10);
+    const p2 = new Player(2, 'Sophie', hand,  10, 1);
     players.push(p1);
     players.push(p2);
     return players;
@@ -103,12 +103,23 @@ class Game{
   * 2. Check the health of both players
   */
   checkForWin(){
+    function initWinPage(){
+      $('.game-wrapper').fadeOut(function(){
+        $('.end-game-page').fadeIn();
+      });
+    }
     const p1 = this.getPlayer(1);
     const p2 = this.getPlayer(2);
     if (p1.playerHealth <= 0 ) {
-      alert('Game over p2 won');
+      $('#winner-name').html(p2.playerName);
+      $('.winner').addClass('player2-win');
+      $('.loser').addClass('player1-loss');
+      initWinPage();
     }else if (p2.playerHealth <= 0) {
-      alert('Game over p1 won');
+      $('#winner-name').html(p1.playerName);
+      $('.winner').addClass('player1-win');
+      $('.loser').addClass('player2-loss');
+      initWinPage();
     }
   }
 
@@ -159,6 +170,9 @@ class Game{
         var opponent = that.getPlayer(1);
       }
       player.playerState = 'attack';
+      animateButtons(`#player${player.playerID}-defend`);
+      animateButtons(`#player${player.playerID}-attack`);
+
       $(`#player${player.playerID}-defend`).prop('disabled', false).click(function(){
         player.playerState = 'defend';
         clearFightTurn(player);
@@ -178,6 +192,16 @@ class Game{
       }else{
         initFightTurn(that.getPlayer(1))
       }
+    }
+
+    function animateButtons(elem){
+      $(elem).animate({
+        'margin-bottom': '10px'
+      },100, function(){
+        $(this).animate({
+          'margin-bottom': '0px'
+        },100)
+      })
     }
 
     initFightTurn(player);

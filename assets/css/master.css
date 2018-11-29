@@ -24,7 +24,6 @@ h1, h2, p{
   height: 30vh;
 }
 
-
 .page-title h1{
   width: 100%;
   text-align: center;
@@ -32,7 +31,7 @@ h1, h2, p{
 
 .child{
   width: 60%;
-  min-width: 150px;
+  min-width: 100px;
 }
 
 .mid-mid{
@@ -57,6 +56,11 @@ h1, h2, p{
   max-width: 100px;
 }
 
+.bottom img{
+  width: 100%;
+  max-width: 300px;
+}
+
 /* BRIDGE PAGE */
 .bridge-page .text{
   margin-top: 100px;
@@ -65,7 +69,7 @@ h1, h2, p{
 .bridge-page .text p{
   font-size: 2.8em;
   letter-spacing: 6px;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 .bridge-page p span{

@@ -10,8 +10,12 @@
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles -->
   <link rel="stylesheet" href="assets/css/game.css" type="text/css">
+  <!-- Font icon -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
 </head>
   <body>
+    <!-- Game Page -->
     <div class="game-wrapper">
       <div class="container-fluid">
         <div class="row">
@@ -82,6 +86,43 @@
       </div>
 
     </div>
+
+
+
+
+    <!-- End Game Page -->
+    <div class="end-game-page" style="display: none;">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1><span id="winner-name"></span> won!</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="winner"></div>
+          </div>
+          <div class="col-sm-6 hidden-xs">
+            <div class="loser"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            <ul>
+              <li><a href="game.html">NEW GAME</a></li>
+              <li><a href="index.html">HOME</a></li>
+              <li><a href="https://www.linkedin.com/in/timo-wernars/"><i class="fab fa-linkedin"></i></a></li>
+              <li><a href="https://github.com/ttimoww/Bathroom-Fight"><i class="fab fa-github"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
     <!-- SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
     <script src="assets/js/game/Game.js" charset="utf-8"></script>

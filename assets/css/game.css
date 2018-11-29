@@ -19,7 +19,6 @@ h1, h2, p{
   width: 100vw;
 }
 
-
 /* PLAYER WEAPON */
 
 .player-weapon{
@@ -52,6 +51,19 @@ h1, h2, p{
   align-items: center;
 }
 
+.player-actions button{
+  width: 90px;
+  font-family: Catamaran-Bold;
+  padding-bottom: 3px;
+}
+
+@media screen and (max-width: 430px) {
+  .player-actions button{
+    display: block;
+    margin: 5px auto;
+  }
+}
+
 /* PLAYER HEALTH */
 
 .player-health{
@@ -62,7 +74,7 @@ h1, h2, p{
 }
 
 .health-bar{
-  width: 170px;
+  width: 185px;
   height: 20px;
   border-radius: 4px;
   background-color: #E9ECEF;
@@ -132,10 +144,7 @@ h1, h2, p{
   display: inline-block;
 }
 
-/* COL STATES */
-.empty{} /* TODO:  */
-.blocked{} /* TODO:  */
-
+/* COL CLASSES */
 .player1-next{
   background-color: rgba(235, 82, 125, .3);
   cursor: pointer;
@@ -175,18 +184,18 @@ h1, h2, p{
   background-color: rgba(235, 82, 125, 1);
 }
 
-.obstacle-baby{
+.obstacle-baby{ /* NOT USED ATM */
   background-image: url(../../media/game/obstacles/baby.png);
   background-size: cover;
   background-color: rgba(235, 82, 125, 1);
 }
 
-.obstacle-closet{
+.obstacle-closet{ /* NOT USED ATM */
   background-image: url(../../media/game/obstacles/closet.png);
   background-size: cover;
   background-color: rgba(235, 82, 125, 1);
 }
-.obstacle-washing{
+.obstacle-washing{ /* NOT USED ATM */
   background-image: url(../../media/game/obstacles/washing.png);
   background-size: cover;
   background-color: rgba(235, 82, 125, 1);
@@ -209,4 +218,88 @@ h1, h2, p{
   background-color: rgba(152, 214, 235, .6);
 }
 
-/* STYLES MANIPULATED BY JAVASCRIPT */
+/* END GAME */
+.end-game-page{
+  min-height: 100vh;
+  border: 1px solid blue;
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  background-color: #DFF9FB;
+}
+
+.end-game-page h1{
+  text-align: center;
+}
+
+.winner, .loser{
+  width: 100%;
+  height: 400px;
+}
+
+.end-game-page ul{
+  list-style: none;
+  font-family: Catamaran-Bold;
+  display: flex;
+  justify-content:  space-around;
+  margin: 0;
+  padding: 0;
+}
+
+.end-game-page li{
+  display: inline-block;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: black;
+}
+
+.end-game-page ul *{
+  color: black;
+}
+
+#new-game{
+  cursor: pointer;
+}
+
+.end-game-page li  i{
+  font-size: 2em;
+}
+
+@media screen and (min-width: 600px) {
+  .end-game-page .container{
+    margin-top: 100px;
+  }
+  .end-game-page ul{
+    margin: 40px 0 0 0;
+  }
+}
+
+/* END GAME CLASSES */
+.player1-win{
+  background-image: url(../../media/landing-page/son.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.player2-win{
+  background-image: url(../../media/landing-page/daughter.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.player1-loss{
+  background-image: url(../../media/landing-page/son-sad.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.player2-loss{
+  background-image: url(../../media/landing-page/daughter-sad.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
