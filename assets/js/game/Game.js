@@ -99,8 +99,12 @@ class Game{
   }
 
   /**
-  * 1. Get both players
-  * 2. Check the health of both players
+  * 1. initWinPage()
+  *   1.1 Hide the game page
+  *   1.2 Show the end game page
+  * 2. Get both players
+  * 3. Check health of both players
+  * 4. If one of players is dead, init end game page
   */
   checkForWin(){
     function initWinPage(){
@@ -158,6 +162,8 @@ class Game{
   *   2.1 Disable both buttons
   *   2.2 Check for win
   *   2.3 Init turn for other player
+  * 3. animateButtons(elem)
+  *   3.1 Add and remove margin on element to create bounce
   */
   startFight(player){
     const that = this;

@@ -221,7 +221,6 @@ h1, h2, p{
 /* END GAME */
 .end-game-page{
   min-height: 100vh;
-  border: 1px solid blue;
   position: absolute;
   left: 0; top: 0; right: 0;
   background-color: #DFF9FB;
@@ -256,10 +255,6 @@ h1, h2, p{
 
 .end-game-page ul *{
   color: black;
-}
-
-#new-game{
-  cursor: pointer;
 }
 
 .end-game-page li  i{
