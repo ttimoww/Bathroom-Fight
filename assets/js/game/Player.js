@@ -18,7 +18,7 @@ class Player{
 * 3. Add player div to column
 */
   spawnPlayer(){
-    console.log(`Spawing: player${this.playerID}`);
+    console.log(`Spawing: ${this.playerName}`);
     const $spawnCol = $(`.col[x='${this.playerLocationX}'][y='${this.playerLocationY}']`);
     const $player = $(`<div id='player${this.playerID}'>`);
     $spawnCol.attr('state', `player${this.playerID}`);
