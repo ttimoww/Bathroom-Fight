@@ -67,6 +67,7 @@ class Game{
   */
   initTurn(player){
     console.log(`New turn for ${player.playerName}`);
+    $(`#player${player.playerID}`).addClass('active-player');
     const that = this;
     if (this.checkForAttack(player) === true) {
       that.initAttack(player);
@@ -246,6 +247,7 @@ class Game{
   clearAttack(player){
     $(`#player${player.playerID}-defend`).prop('disabled', true).unbind('click');
     $(`#player${player.playerID}-attack`).prop('disabled', true).unbind('click');
+    $(`#player${player.playerID}`).removeClass('active-player');
     this.clearMoves(player);
     this.checkForWin();
     if (player.playerID === 1) {

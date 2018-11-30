@@ -207,6 +207,8 @@ h1, h2, p{
   width: 100%;
   background-image: url(../../media/game/players/player1.png);
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: rgba(235, 82, 125, .3);
 }
 
@@ -215,9 +217,14 @@ h1, h2, p{
   width: 100%;
   background-image: url(../../media/game/players/player2.png);
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: rgba(152, 214, 235, .6);
 }
 
+.active-player{
+  animation: active-player-keyframe 0.5s infinite ease;
+}
 /* END GAME */
 .end-game-page{
   min-height: 100vh;
@@ -297,4 +304,11 @@ h1, h2, p{
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* KEYFRAMES */
+@keyframes active-player-keyframe {
+  0%{background-size: 100%;}
+  50%{background-size: 105%;}
+  100%{background-size: 100%;}
 }
