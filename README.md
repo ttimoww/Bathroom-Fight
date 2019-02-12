@@ -1,5 +1,5 @@
 ## The Bathroom Fight
-[The Bathroom Fight](http://timowernars.com/mywork/fotb)
+[The Bathroom Fight](http://bathroomfight.timowernars.com)
 
 ## Made with
 * HTML (Bootstrap)
